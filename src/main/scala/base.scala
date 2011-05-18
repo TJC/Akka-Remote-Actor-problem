@@ -82,9 +82,9 @@ class Worker extends Actor {
     def receive = {
         case Work(start, nrOfElements) =>
             println("slave received Work message")
-            self.reply(
-                Result(calculatePiFor(start, nrOfElements))
-            )
+            val boss = remote.actorFor("pi-boss", "localhost", 2553)
+            boss ! Result(calculatePiFor(start, nrOfElements))
+
         case _ => println("slave received unknown message!")
     }
 

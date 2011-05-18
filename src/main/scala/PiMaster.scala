@@ -7,7 +7,8 @@ import java.util.concurrent.CountDownLatch
 import tjc.akka.base._
 
 object PiMaster extends App {
-  calculate(nrOfWorkers = 1, nrOfElements = 100, nrOfMessages = 1)
+  remote.start("localhost", 2553)
+  calculate(nrOfWorkers = 8, nrOfElements = 1000, nrOfMessages = 10000)
 
 
   // ==================
@@ -19,9 +20,13 @@ object PiMaster extends App {
     val latch = new CountDownLatch(1)
 
     // create the master
-    val master = actorOf(
-      new Master(nrOfWorkers, nrOfMessages, nrOfElements, latch)
-    ).start()
+    remote.register("pi-boss",
+        actorOf(
+          new Master(nrOfWorkers, nrOfMessages, nrOfElements, latch)
+        )
+    )
+
+    val master = remote.actorFor("pi-boss", "localhost", 2553)
 
     // start the calculation
     master ! Calculate
