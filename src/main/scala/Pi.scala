@@ -1,3 +1,11 @@
+// **************************************************
+// This is the original Pi tutorial code.
+// It works; it's just here for reference, and isn't
+// part of the problematic Remote Actors code.
+// **************************************************
+
+
+
 package akka.tutorial.first.scala
 
 import akka.actor.{Actor, PoisonPill}
