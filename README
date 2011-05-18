@@ -13,8 +13,16 @@ Instructions to recreate:
 3) In another window, run ./master.sh
 
 
-Alternative branch:
+Alternative branches:
 The 'master' branch is my first attempt, which has separate classes containing
 the master and worker actors.
+
 The 'common_actors' branch has been modified so that the actors are in a common
 package, in case that helped with scoping. (It didn't work either.)
+
+The 'explicit_recipient' branch works! In this one, the master sets itself up
+as a remote slave as well (on another port). In the slave, instead of using
+self.reply(..), I fetch the remote actor for Master and pass it the message.
+Although this works, it feels a bit messy; I thought Akka claimed to
+automatically return messages to the sender? (ie. self.reply() should work)
+
