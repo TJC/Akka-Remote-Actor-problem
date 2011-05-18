@@ -1,0 +1,20 @@
+Attempt at using Remote Actors with Akka.
+
+Problem: It doesn't work!
+Whenever I run it, the slave process reports a problem instantiating a class
+from the Master thread when it comes to reply to it..
+But I don't think it should even be creating that; it should just send the
+message back to the other process, shouldn't it?
+
+
+Instructions to recreate:
+1) run 'sbt', 'update', 'compile'
+2) In one window, run ./slave.sh
+3) In another window, run ./master.sh
+
+
+Alternative branch:
+The 'master' branch is my first attempt, which has separate classes containing
+the master and worker actors.
+The 'common_actors' branch has been modified so that the actors are in a common
+package, in case that helped with scoping. (It didn't work either.)
